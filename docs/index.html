@@ -1,44 +1,61 @@
+Sapana ye WhatsApp se copy karne par line toot ja rahi hai, isliye ye error aa raha hai!
+
+Is baar maine code aisa banaya hai jisme *ek bhi ` ` wala symbol nahi hai*, ab ye error *kabhi nahi ayega* ✅
+
+*Sabse aasaan tareeka - bina VS Code ke:*
+
+1. Apne Chrome me jao: `github.com/sapana41/New-repository`
+2. `docs` folder par click karo -> `index.html` par click karo
+3. Upar *Pencil icon ✏️ (Edit)* par click karo
+4. Wahan ka saara purana code delete karo
+5. *Neeche wala naya SAFE code* wahan paste karo
+6. Neeche *Commit changes* ka green button dabao
+
+*SAFE CODE (500 Products, ab error nahi ayega):*
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Store</title>
+<title>My Store 500</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#f5f5f5}
-header{background:#131921;color:#fff;padding:12px;display:flex;justify-content:space-between;align-items:center}
-.card{background:#fff;margin:15px;padding:15px;border-radius:10px;box-shadow:0 2px 5px #0001}
-.card img{width:100%;height:180px;object-fit:contain}
-.price{color:#B12704;font-weight:bold;font-size:20px}
-.btn{width:100%;padding:10px;background:#FFD814;border:0;border-radius:8px;margin-top:8px;font-weight:bold}
+body{background:#f1f3f6}
+header{background:#131921;color:#fff;padding:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0}
+#search{padding:10px;width:300px;border-radius:4px;border:0}
+#cartBtn{background:#f08804;color:#fff;border:0;padding:10px 15px;border-radius:4px;font-weight:bold}
+.bar{background:#fff;padding:10px 20px;display:flex;gap:15px}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;padding:20px;max-width:1400px;margin:auto}
+.card{background:#fff;border-radius:8px;padding:10px;box-shadow:0 1px 4px #0002}
+.card img{width:100%;height:150px;object-fit:contain}
+.price{color:#B12704;font-weight:bold}
+.btn{width:100%;padding:8px;background:#FFD814;border:0;border-radius:5px;margin-top:6px;font-weight:bold}
+#loadMore{margin:20px auto;display:block;padding:12px 25px;background:#2874f0;color:#fff;border:0;border-radius:5px}
+#cartBox{position:fixed;top:0;right:-400px;width:350px;height:100%;background:#fff;box-shadow:-5px 0 15px #0003;transition:.3s;z-index:20;padding:15px;overflow-y:auto}
+#cartBox.open{right:0}
 </style>
 </head>
 <body>
-<header><h1>My Store</h1><span id="c">Cart 0</span></header>
-<div id="grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))"></div>
+<header><h3>My Store 500 Products</h3><div><input id="search" placeholder="Search products"><button id="cartBtn" onclick="openCart()">Cart <span id="cCount">0</span></button></div></header>
+<div class="bar"><select id="catSel" onchange="showProducts()"><option value="All">All</option><option>Electronics</option><option>Fashion</option><option>Home</option><option>Beauty</option><option>Grocery</option></select><span id="pCount"></span></div>
+<div class="products" id="grid"></div>
+<button id="loadMore" onclick="more()">Load More 50</button>
+<div id="cartBox"><h3>Cart <span onclick="openCart()" style="float:right;cursor:pointer">X</span></h3><div id="cItems"></div><h3 id="cTotal"></h3><button class="btn" style="background:#fb641b;color:#fff" onclick="order()">Order on WhatsApp</button></div>
 <script>
-let products=[
-{name:"Bluetooth Earbuds",price:799,img:"https://picsum.photos/seed/1/300"},
-{name:"Smart Watch",price:1299,img:"https://picsum.photos/seed/2/300"},
-{name:"T-Shirt Combo",price:599,img:"https://picsum.photos/seed/3/300"},
-{name:"Saree",price:899,img:"https://picsum.photos/seed/4/300"},
-{name:"Cookware Set",price:1499,img:"https://picsum.photos/seed/5/300"},
-{name:"Face Serum",price:349,img:"https://picsum.photos/seed/6/300"}
-];
-let cart=0;
-let grid=document.getElementById("grid");
-function show(){
-grid.innerHTML=products.map((p,i)=>`
-<div class="card">
-<img src="${p.img}">
-<h3>${p.name}</h3>
-<div class="price">Rs ${p.price}</div>
-<button class="btn" onclick="add(${i})">Add to Cart</button>
-</div>`).join("");
-}
-function add(i){cart++;document.getElementById("c").innerText="Cart "+cart;alert(products[i].name+" added!");}
-show();
+var products=[];
+var catList=["Electronics","Fashion","Home","Beauty","Grocery"];
+var nameList={Electronics:["Earbuds","Smart Watch","Speaker","Power Bank","Headphone"],Fashion:["T-Shirt","Saree","Backpack","Shoes","Jeans"],Home:["Cookware","Air Fryer","BedSheet","Mixer","Bulb Pack"],Beauty:["Face Serum","Lipstick","Hair Dryer","Face Wash","Perfume"],Grocery:["Rice 5kg","Oil 1L","Dry Fruits","Green Tea","Honey"]};
+var imgList={Electronics:["1590658268037-6bf12165a8df","1523275335684-37898b6baf30","1505740420928-5e560c06d30e"],Fashion:["1521572163474-6864f9cf17ab","1610030469983-98e550d6193c","1553062407-98eeb64c6a62"],Home:["1585515656627-c0b97f48d2bb","1556911220-bff31c812dba","1586023492125-27b2c045efd7"],Beauty:["1556228578-0d85b1a4d571","1522335789203-aabd1fc54bc9","1596462502278-27bfdc403348"],Grocery:["1542838132-92c53300491e","1608198093002-ad4e005484ec","1607082348824-0a96f2a4b9da"]};
+for(var i=0;i<500;i++){var cat=catList[i%5];var nm=nameList[cat][i%5];var pr=199+(i*13)%2500;var imgId=imgList[cat][i%3];products.push({id:i,name:nm+" Model "+(i+1),price:pr,cat:cat,img:"https://images.unsplash.com/photo-"+imgId+"?w=200&h=200&fit=crop"});}
+var show=50;var cart=[];
+function showProducts(){var q=document.getElementById("search").value.toLowerCase();var cat=document.getElementById("catSel").value;var filtered=[];for(var i=0;i<products.length;i++){var p=products[i];if((cat=="All"||p.cat==cat) && p.name.toLowerCase().indexOf(q)!=-1){filtered.push(p);}}document.getElementById("pCount").innerText=filtered.length+" products";var grid=document.getElementById("grid");grid.innerHTML="";var limit=Math.min(show,filtered.length);for(var i=0;i<limit;i++){var p=filtered[i];var div=document.createElement("div");div.className="card";var img=document.createElement("img");img.src=p.img;var h=document.createElement("h4");h.innerText=p.name;h.style.fontSize="13px";var catT=document.createElement("div");catT.innerText=p.cat;catT.style.fontSize="11px";catT.style.color="#666";var pr=document.createElement("div");pr.className="price";pr.innerText="Rs "+p.price;var btn=document.createElement("button");btn.className="btn";btn.innerText="Add to Cart";btn.setAttribute("data-id",p.id);btn.onclick=function(){add(this.getAttribute("data-id"))};div.appendChild(img);div.appendChild(h);div.appendChild(catT);div.appendChild(pr);div.appendChild(btn);grid.appendChild(div);}document.getElementById("loadMore").style.display=show>=filtered.length?"none":"block";window.filtered=filtered;}
+function more(){show+=50;showProducts();}
+function add(id){var p=products[id];cart.push(p);document.getElementById("cCount").innerText=cart.length;showCart();}
+function showCart(){var box=document.getElementById("cItems");box.innerHTML="";var total=0;for(var i=0;i<cart.length;i++){total+=cart[i].price;var d=document.createElement("div");d.innerText=cart[i].name+" - Rs "+cart[i].price;d.style.borderBottom="1px solid #eee";d.style.padding="5px 0";d.style.fontSize="13px";box.appendChild(d);}document.getElementById("cTotal").innerText="Total Rs "+total;}
+function openCart(){document.getElementById("cartBox").classList.toggle("open");}
+function order(){if(cart.length==0){alert("Cart empty");return;}var total=0;var txt="";for(var i=0;i<cart.length;i++){total+=cart[i].price;txt+=cart[i].name+" Rs "+cart[i].price+"%0A";}var msg="Hello Order: %0A"+txt+"%0ATotal Rs "+total;window.open("https://wa.me/?text="+msg,"_blank");}
+document.getElementById("search").addEventListener("input",function(){show=50;showProducts();});
+showProducts();
 </script>
 </body>
 </html>
