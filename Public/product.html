@@ -1,0 +1,9 @@
+<!DOCTYPE html><html><head><title>My Store 500</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><h1 onclick="location.href='/'">My Store</h1>
+<div class="search-box"><input id="searchInput" placeholder="Search..." oninput="searchProducts()" /><button onclick="searchProducts()">Search</button></div>
+<div onclick="viewCart()" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</div></header>
+<div class="filter-bar"><span id="product-count"></span><select id="categoryFilter" onchange="filterByCategory()"><option value="">All Categories</option><option>T-Shirt</option><option>Shoes</option><option>Watch</option><option>Bag</option><option>Jeans</option><option>Hoodie</option><option>Cap</option><option>Sunglasses</option><option>Laptop</option><option>Mobile</option></select></div>
+<div id="products" class="product-grid"></div><div id="pagination" class="pagination"></div>
+<div id="cart-modal" class="modal"><div class="modal-content"><span onclick="closeCart()" class="close">&times;</span><h2>Shopping Cart</h2><div id="cart-items"></div><h3 id="cart-total"></h3><input id="cust-name" placeholder="Your Name" /><input id="cust-address" placeholder="Your Address" /><button onclick="placeOrder()" class="btn order-btn">Place Order</button></div></div>
+<script src="script.js"></script></body></html>
