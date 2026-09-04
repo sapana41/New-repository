@@ -1,9 +1,44 @@
-<!DOCTYPE html><html><head><title>My Store 500</title><link rel="stylesheet" href="style.css"></head>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Store</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#f5f5f5}
+header{background:#131921;color:#fff;padding:12px;display:flex;justify-content:space-between;align-items:center}
+.card{background:#fff;margin:15px;padding:15px;border-radius:10px;box-shadow:0 2px 5px #0001}
+.card img{width:100%;height:180px;object-fit:contain}
+.price{color:#B12704;font-weight:bold;font-size:20px}
+.btn{width:100%;padding:10px;background:#FFD814;border:0;border-radius:8px;margin-top:8px;font-weight:bold}
+</style>
+</head>
 <body>
-<header><h1 onclick="location.href='/'">My Store</h1>
-<div class="search-box"><input id="searchInput" placeholder="Search..." oninput="searchProducts()" /><button onclick="searchProducts()">Search</button></div>
-<div onclick="viewCart()" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</div></header>
-<div class="filter-bar"><span id="product-count"></span><select id="categoryFilter" onchange="filterByCategory()"><option value="">All Categories</option><option>T-Shirt</option><option>Shoes</option><option>Watch</option><option>Bag</option><option>Jeans</option><option>Hoodie</option><option>Cap</option><option>Sunglasses</option><option>Laptop</option><option>Mobile</option></select></div>
-<div id="products" class="product-grid"></div><div id="pagination" class="pagination"></div>
-<div id="cart-modal" class="modal"><div class="modal-content"><span onclick="closeCart()" class="close">&times;</span><h2>Shopping Cart</h2><div id="cart-items"></div><h3 id="cart-total"></h3><input id="cust-name" placeholder="Your Name" /><input id="cust-address" placeholder="Your Address" /><button onclick="placeOrder()" class="btn order-btn">Place Order</button></div></div>
-<script src="script.js"></script></body></html>
+<header><h1>My Store</h1><span id="c">Cart 0</span></header>
+<div id="grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))"></div>
+<script>
+let products=[
+{name:"Bluetooth Earbuds",price:799,img:"https://picsum.photos/seed/1/300"},
+{name:"Smart Watch",price:1299,img:"https://picsum.photos/seed/2/300"},
+{name:"T-Shirt Combo",price:599,img:"https://picsum.photos/seed/3/300"},
+{name:"Saree",price:899,img:"https://picsum.photos/seed/4/300"},
+{name:"Cookware Set",price:1499,img:"https://picsum.photos/seed/5/300"},
+{name:"Face Serum",price:349,img:"https://picsum.photos/seed/6/300"}
+];
+let cart=0;
+let grid=document.getElementById("grid");
+function show(){
+grid.innerHTML=products.map((p,i)=>`
+<div class="card">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<div class="price">Rs ${p.price}</div>
+<button class="btn" onclick="add(${i})">Add to Cart</button>
+</div>`).join("");
+}
+function add(i){cart++;document.getElementById("c").innerText="Cart "+cart;alert(products[i].name+" added!");}
+show();
+</script>
+</body>
+</html>
